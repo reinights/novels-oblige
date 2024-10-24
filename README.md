@@ -2,7 +2,7 @@
 
 Novels Oblige is a web novel platform that harnesses some functionality of the browser. The website will include an editor that will allow for styling, and media placements within "blocks". Furthermore, the novels will include functionality for non-linearity that allows users to make choices that affect how the story will unfold.
 
-##Features
+## Features
 
 - [ ] User registration and logins
 - [ ] User profile pages
@@ -13,18 +13,18 @@ Novels Oblige is a web novel platform that harnesses some functionality of the b
 - [ ] Currency system to unlock latest chapters
 - [ ] Daily missions to get currency
 
-###Extension
+### Extension
 
 - [ ] Advanced novel editor and reader (styling, media placements, ad placements, animation, and audio)
 - [ ] Twine support
 
-##Tech Stack
+## Tech Stack
 
-###MongoDB
+### MongoDB
 
-###Express.js + Node.js
+### Express.js + Node.js
 
-###React
+### React
 
 ###Next.js
 
