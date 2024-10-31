@@ -4,6 +4,8 @@ Novels Oblige is a web novel platform that harnesses some functionality of the b
 
 Additionally, I want to add trigger "pages" in which a specific audio will play that the author can choose.
 
+(Tentative) The creative side will be on an alternative status displayer. Normally, this would be a text-only tracker, but users can choose to view their collections in a "garden" where starting a novel plants a seed and as they read through it grows into a tree on completion.
+
 As an extension, I want the platform to provide a more richer reading experience with web technologies such as advanced media placements, animations, and rendering technologies
 
 ## Features
@@ -27,6 +29,7 @@ As an extension, I want the platform to provide a more richer reading experience
 ### Considerations
 
 - [ ] AI-voice reader for accessbility.
+- [ ] Garden view for status tracking.
 
 ## Tech Stack
 
@@ -66,10 +69,10 @@ As an extension, I want the platform to provide a more richer reading experience
 
 ### User
 
-- User credentials
-- User information
-- Followed novels and authors
-- Novel statuses
+- User credentials (password, email)
+- User information (username, DOB)
+- Followed novels and authors 
+- Novel statuses (reading, stalled, dropped, completed, and plan to read)
 - Mission progress
 
 ### Novel
