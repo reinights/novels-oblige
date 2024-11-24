@@ -1,16 +1,19 @@
 
 "use client"
-
-import React, {useState} from 'react';
-
-import { createEditor } from 'slate';
-
-import {Slate, Editable, withReact} from 'slate-react'
-
-
+import React, { useMemo, useRef, useEffect, useState } from 'react'
+import { Slate, Editable, withReact, useSlate, useFocused } from 'slate-react'
+import {
+  Editor,
+  Transforms,
+  Text,
+  createEditor,
+  Descendant,
+  Range,
+  BaseEditor
+} from 'slate'
 // TypeScript users only add this code
-import { BaseEditor, Descendant } from 'slate'
 import { ReactEditor } from 'slate-react'
+import Link from 'next/link';
 
 type CustomElement = { type: 'paragraph'; children: CustomText[] }
 type CustomText = { text: string }
@@ -23,10 +26,26 @@ declare module 'slate' {
   }
 }
 
-const initialValue = [
+const initialValue: Descendant[] = [
   {
     type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
+    children: [
+      {
+        text: 'This example shows how you can make a hovering menu appear above your content, which you can use to make text ',
+      },
+      { text: 'bold', bold: true },
+      { text: ', ' },
+      { text: 'italic', italic: true },
+      { text: ', or anything else you might want to do!' },
+    ],
+  },
+  {
+    type: 'paragraph',
+    children: [
+      { text: 'Try it out yourself! Just ' },
+      { text: 'select any piece of text and the menu will appear', bold: true },
+      { text: '.' },
+    ],
   },
 ]
 
@@ -56,6 +75,7 @@ export default function Home() {
       <div className={"mb-9"}>
         <h1 className={"text-3xl font-bold"}>Submission Point 2 - Text Editor</h1>
         <h2>Slate.js in Next.js. Tailwind practice also included</h2>
+        <Link className={"text-red-600 font-bold"}  href="page-viewer">Switch to Page Viewer</Link>
       </div>
       <div className="flex flex-col gap-6">
         {editors.map(({ id, editor, value }) => (
@@ -82,7 +102,8 @@ export default function Home() {
                     X
                 </button>
               </div>
-              <Editable className="border-2 border-black rounded-md p-2"/>
+              <Editable 
+                className="border-2 border-black rounded-md p-2"/>
             </Slate>
           </div>
         ))}
