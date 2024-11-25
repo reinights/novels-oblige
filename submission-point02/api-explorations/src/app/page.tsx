@@ -15,7 +15,7 @@ import {
 import { ReactEditor } from 'slate-react'
 import Link from 'next/link';
 
-type CustomElement = { type: 'paragraph'; children: CustomText[] }
+type CustomElement = { type: 'paragraph'; children: CustomText[] } //starting code for Slate.js: https://docs.slatejs.org/walkthroughs/01-installing-slate
 type CustomText = { text: string }
 
 declare module 'slate' {
@@ -26,7 +26,7 @@ declare module 'slate' {
   }
 }
 
-const initialValue: Descendant[] = [
+const initialValue: Descendant[] = [ //Unimplemented, but starting point of the hovering toolbar example: https://github.com/ianstormtaylor/slate/blob/main/site/examples/ts/hovering-toolbar.tsx
   {
     type: 'paragraph',
     children: [
@@ -50,12 +50,12 @@ const initialValue: Descendant[] = [
 ]
 
 export default function Home() {
-  const [editors, setEditors] = useState([{ id: 1, editor: withReact(createEditor()), value: initialValue }]);
+  const [editors, setEditors] = useState([{ id: 1, editor: withReact(createEditor()), value: initialValue }]); //Starting code modified for my usecase
 
   const addEditor = () => {
     setEditors(prevEditors => [
       ...prevEditors, //spread operator, represents the current values of the array
-      {
+      { // creates a new editor.
         id: prevEditors.length + 1, 
         editor: withReact(createEditor()), 
         value: initialValue,
@@ -63,7 +63,7 @@ export default function Home() {
     ]);
   };  
   const deleteEditor = (editorIdToDelete) => { //buggy at the moment, keys not totally unique
-    setEditors((prevEditors) => {
+    setEditors((prevEditors) => { //creates new editors array with the specified id taken out using the filter function.
       const updatedEditors = prevEditors.filter(
         (editor) => editor.id !== editorIdToDelete
       );
@@ -72,18 +72,21 @@ export default function Home() {
   };
   return (
     <div className={"max-w-screen-lg m-auto"}>
+      {/*Header*/}
       <div className={"mb-9"}>
         <h1 className={"text-3xl font-bold"}>Submission Point 2 - Text Editor</h1>
         <h2>Slate.js in Next.js. Tailwind practice also included</h2>
         <Link className={"text-red-600 font-bold"}  href="page-viewer">Switch to Page Viewer</Link>
       </div>
+      {/*Map for editors*/}
       <div className="flex flex-col gap-6">
         {editors.map(({ id, editor, value }) => (
           <div key={id}>
+            {/*Slate components typically made up of a Slate component and the Editable component */}
             <Slate 
               editor={editor} 
               initialValue={value}
-              onChange={newValue => {
+              onChange={newValue => { 
                 setEditors(prevEditors => {
                   return prevEditors.map(ed => {
                     if (ed.id === id) { //makes the changes on each editor secure to its editor
@@ -94,6 +97,7 @@ export default function Home() {
                 });
               }}
             >
+              {/*Indicators, and close button */}
               <div className={"flex justify-between"}>
                 <p>Page {id}</p> 
                 <button  
