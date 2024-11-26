@@ -76,7 +76,19 @@ export default function Home() {
       <div className={"mb-9"}>
         <h1 className={"text-3xl font-bold"}>Submission Point 2 - Text Editor</h1>
         <h2>Slate.js in Next.js. Tailwind practice also included</h2>
-        <Link className={"text-red-600 font-bold"}  href="page-viewer">Switch to Page Viewer</Link>
+        <Link className={"text-red-600 text-2xl font-bold"}  href="page-viewer">Switch to Page Viewer (Joker Murray Scene)</Link>
+        <p className={"font-bold text-xl text-red-400"}>VOLUME WARNING! Youtube Player will be maxed out, I do not know how to change its properties</p>
+        <h2 className='font-bold'>Dependency used (Page Editor)</h2>
+        <ul>
+          <li>slate (yarn add slate slate-react)</li>
+          <li>slate-react</li>
+        </ul>
+        <h2 className='font-bold'>Dependency used (Text)</h2>
+        <ul>
+          <li>howler.js (npm install howler)</li>
+          <li>[temporary] youtube video api (npm install react-youtube)</li>
+        </ul>
+      
       </div>
       {/*Map for editors*/}
       <div className="flex flex-col gap-6">
@@ -91,7 +103,7 @@ export default function Home() {
                   return prevEditors.map(ed => {
                     if (ed.id === id) { //makes the changes on each editor secure to its editor
                       return { ...ed, value: newValue };
-                    }
+                    } 
                     return ed;
                   });
                 });
