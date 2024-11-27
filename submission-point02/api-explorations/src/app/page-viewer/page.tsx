@@ -109,8 +109,8 @@ export default function FirstPost() {
     <div className={"max-w-screen-lg m-auto"}>
       <div className={"mb-5"}>
         <h1 className={"text-3xl font-bold"}>Submission Point 2 - Page Viewer</h1>
-        <h2>Howler.js in Next.js. Tailwind practice also included</h2>
-        <Link className={"text-red-600 text-2xl font-bold"} href="/">Switch to Text Editor</Link>
+        <h2>Howler.js (and temporarily react-youtube) in Next.js. Tailwind practice also included</h2>
+        <Link className={"text-white pl-3 pr-3 bg-red-600 text-2xl font-bold"} href="/">Switch to Text Editor</Link>
       </div>
       <p className='text-center'>Joker - Murray Scene {currentIndex} / 13</p>
 

@@ -1,7 +1,7 @@
 
 "use client"
-import React, { useMemo, useRef, useEffect, useState } from 'react'
-import { Slate, Editable, withReact, useSlate, useFocused } from 'slate-react'
+import React, { useCallback, useState } from 'react'
+import { Slate, Editable, Toolbar, withReact, useSlate, useFocused } from 'slate-react'
 import {
   Editor,
   Transforms,
@@ -9,7 +9,8 @@ import {
   createEditor,
   Descendant,
   Range,
-  BaseEditor
+  BaseEditor,
+  Element
 } from 'slate'
 // TypeScript users only add this code
 import { ReactEditor } from 'slate-react'
@@ -25,32 +26,29 @@ declare module 'slate' {
     Text: CustomText
   }
 }
-
-const initialValue: Descendant[] = [ //Unimplemented, but starting point of the hovering toolbar example: https://github.com/ianstormtaylor/slate/blob/main/site/examples/ts/hovering-toolbar.tsx
+const initialValue = [
   {
     type: 'paragraph',
-    children: [
-      {
-        text: 'This example shows how you can make a hovering menu appear above your content, which you can use to make text ',
-      },
-      { text: 'bold', bold: true },
-      { text: ', ' },
-      { text: 'italic', italic: true },
-      { text: ', or anything else you might want to do!' },
-    ],
-  },
-  {
-    type: 'paragraph',
-    children: [
-      { text: 'Try it out yourself! Just ' },
-      { text: 'select any piece of text and the menu will appear', bold: true },
-      { text: '.' },
-    ],
+    children: [{ text: 'Ctrl + B for bold text (cannot undo)' }],
   },
 ]
-
 export default function Home() {
   const [editors, setEditors] = useState([{ id: 1, editor: withReact(createEditor()), value: initialValue }]); //Starting code modified for my usecase
+  const [audio, setAudio] = useState([]);
+
+  //slate.js walkthrough
+  const renderElement = useCallback(props => {
+    switch (props.element.type) {
+      case 'code':
+        return <CodeElement {...props} />
+      default:
+        return <DefaultElement {...props} />
+    }
+  }, [])
+
+  const renderLeaf = useCallback(props => {
+    return <Leaf {...props} />
+  }, [])
 
   const addEditor = () => {
     setEditors(prevEditors => [
@@ -76,8 +74,8 @@ export default function Home() {
       <div className={"mb-9"}>
         <h1 className={"text-3xl font-bold"}>Submission Point 2 - Text Editor</h1>
         <h2>Slate.js in Next.js. Tailwind practice also included</h2>
-        <Link className={"text-red-600 text-2xl font-bold"}  href="page-viewer">Switch to Page Viewer (Joker Murray Scene)</Link>
-        <p className={"font-bold text-xl text-red-400"}>VOLUME WARNING! Youtube Player will be maxed out, I do not know how to change its properties</p>
+        <Link className={"text-white pl-3 pr-3 bg-red-600 text-2xl font-bold"}  href="page-viewer">Switch to Page Viewer (Joker Murray Scene)</Link>
+        <p className={"font-bold text-xl text-red-600"}>VOLUME WARNING! Youtube Player will be maxed out, I do not know how to change its properties</p>
         <h2 className='font-bold'>Dependency used (Page Editor)</h2>
         <ul>
           <li>slate (yarn add slate slate-react)</li>
@@ -119,7 +117,30 @@ export default function Home() {
                 </button>
               </div>
               <Editable 
-                className="border-2 border-black rounded-md p-2"/>
+                renderElement={renderElement} 
+                renderLeaf={renderLeaf}
+                className="border-2 border-black rounded-md p-2"
+                onKeyDown={event => { //slate.js walkthrough
+                  if (!event.ctrlKey) {
+                    return
+                  }
+        
+                  switch (event.key) {
+        
+                    // When "B" is pressed, bold the text in the selection.
+                    case 'b': {
+                      event.preventDefault()
+                      Editor.addMark(editor, 'bold', true)
+                      break
+                    }
+                  }
+                }}
+                />
+                
+              <button onClick={() => setAudio(prevSimulator => [...prevSimulator, <AudioSimulator key={audio.length}></AudioSimulator>])} className={"w-6/12 h-10 bg-slate-700 text-white text-bold"}>Add Sound (just generates black boxes that represent audio lengths)</button>
+              <div>
+                {audio}
+              </div>
             </Slate>
           </div>
         ))}
@@ -134,4 +155,37 @@ export default function Home() {
       <button onClick={() => console.log(editors)} className={"bg-slate-600 p-3 text-white font-bold rounded-md mt-9"}>Submit</button>
     </div>
   );
+}
+
+
+const AudioSimulator = () => {
+  return (
+    <div style={{width: `${Math.floor(Math.random() * 100) + 1}%`}} className={"bg-black h-10"}>
+    </div>
+  )
+}
+
+//slate.js documentation walkthroughs
+const CodeElement = props => {
+  return (
+    <pre {...props.attributes}>
+      <code>{props.children}</code>
+    </pre>
+  )
+}
+
+const DefaultElement = props => {
+  return <p {...props.attributes}>{props.children}</p>
+}
+
+// Define a React component to render leaves with bold text.
+const Leaf = props => {
+  return (
+    <span
+      {...props.attributes}
+      style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
+    >
+      {props.children}
+    </span>
+  )
 }
