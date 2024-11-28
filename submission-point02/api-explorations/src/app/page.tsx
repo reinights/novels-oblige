@@ -1,7 +1,7 @@
 
 "use client"
 import React, { useCallback, useState } from 'react'
-import { Slate, Editable, Toolbar, withReact, useSlate, useFocused } from 'slate-react'
+import { Slate, Editable, withReact, useSlate, useFocused } from 'slate-react'
 import {
   Editor,
   Transforms,
@@ -121,7 +121,7 @@ export default function Home() {
                 renderLeaf={renderLeaf}
                 className="border-2 border-black rounded-md p-2"
                 onKeyDown={event => { //slate.js walkthrough
-                  if (!event.ctrlKey) {
+                  if (!event.ctrlKey) { //listens for ctrl key being pressed
                     return
                   }
         
@@ -152,7 +152,7 @@ export default function Home() {
         </button>
       </div>
 
-      <button onClick={() => console.log(editors)} className={"bg-slate-600 p-3 text-white font-bold rounded-md mt-9"}>Submit</button>
+      <button onClick={() => console.log(editors)} className={"bg-slate-600 p-3 text-white font-bold rounded-md mt-9"}>Submit (console.logs the editor contents)</button>
     </div>
   );
 }

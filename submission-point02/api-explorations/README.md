@@ -1,3 +1,36 @@
+# Submission Point 2 - Creative Web
+
+### Steps
+1. cd to api-explorations
+2. Install react, and next.js
+
+```bash
+npm install next@latest react@latest react-dom@latest
+```
+
+3. Install dependencies and modules
+
+```bash
+#slate.js
+yarn add slate slate-react 
+
+#howler.js
+npm install howler
+
+#react-youtube
+npm install react-youtube
+```
+
+4. Run live server
+
+
+```bash
+npm run dev
+```
+ 
+## Auto Generated with create-next-app
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
